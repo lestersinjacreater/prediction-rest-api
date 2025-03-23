@@ -1,41 +1,58 @@
 {
-  "id": "71dd160d-8da9-4478-815a-8b5a1b98ee08",
+  "id": "57d6165c-063d-4e9c-b8a0-651efa4f8b8e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.auth": {
-      "name": "auth",
+    "public.feedback": {
+      "name": "feedback",
       "schema": "",
       "columns": {
-        "authid": {
-          "name": "authid",
+        "feedbackid": {
+          "name": "feedbackid",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
-        "user_id": {
-          "name": "user_id",
+        "predictionid": {
+          "name": "predictionid",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userid": {
+          "name": "userid",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
-        "password": {
-          "name": "password",
-          "type": "varchar(255)",
+        "accuracy_rating": {
+          "name": "accuracy_rating",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "role": {
-          "name": "role",
-          "type": "role",
-          "typeSchema": "public",
+        "comment": {
+          "name": "comment",
+          "type": "varchar(1000)",
           "primaryKey": false,
-          "notNull": false,
-          "default": "'user'"
+          "notNull": false
+        },
+        "actual_yield": {
+          "name": "actual_yield",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
@@ -44,12 +61,25 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "auth_user_id_users_userid_fk": {
-          "name": "auth_user_id_users_userid_fk",
-          "tableFrom": "auth",
+        "feedback_predictionid_predictions_predictionid_fk": {
+          "name": "feedback_predictionid_predictions_predictionid_fk",
+          "tableFrom": "feedback",
+          "tableTo": "predictions",
+          "columnsFrom": [
+            "predictionid"
+          ],
+          "columnsTo": [
+            "predictionid"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "feedback_userid_users_userid_fk": {
+          "name": "feedback_userid_users_userid_fk",
+          "tableFrom": "feedback",
           "tableTo": "users",
           "columnsFrom": [
-            "user_id"
+            "userid"
           ],
           "columnsTo": [
             "userid"
@@ -61,166 +91,61 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.clients": {
-      "name": "clients",
+    "public.predictions": {
+      "name": "predictions",
       "schema": "",
       "columns": {
-        "clientid": {
-          "name": "clientid",
+        "predictionid": {
+          "name": "predictionid",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
-        "firstname": {
-          "name": "firstname",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "lastname": {
-          "name": "lastname",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "email": {
-          "name": "email",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "subject": {
-          "name": "subject",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'general'"
-        },
-        "phone": {
-          "name": "phone",
-          "type": "varchar(20)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "''"
-        },
-        "message": {
-          "name": "message",
-          "type": "varchar(1000)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.products": {
-      "name": "products",
-      "schema": "",
-      "columns": {
-        "productid": {
-          "name": "productid",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "varchar(1000)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "imageUrl": {
-          "name": "imageUrl",
-          "type": "varchar(1000)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.services": {
-      "name": "services",
-      "schema": "",
-      "columns": {
-        "serviceid": {
-          "name": "serviceid",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "varchar(1000)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "imageUrl": {
-          "name": "imageUrl",
-          "type": "varchar(1000)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.testimonials": {
-      "name": "testimonials",
-      "schema": "",
-      "columns": {
-        "testimonialid": {
-          "name": "testimonialid",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
+        "userid": {
+          "name": "userid",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "text": {
-          "name": "text",
-          "type": "varchar(1000)",
+        "crop_type": {
+          "name": "crop_type",
+          "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true
         },
+        "planting_date": {
+          "name": "planting_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "yield_prediction": {
+          "name": "yield_prediction",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "harvest_date": {
+          "name": "harvest_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prediction_data": {
+          "name": "prediction_data",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        },
         "created_at": {
           "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
@@ -229,66 +154,17 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "testimonials_user_id_users_userid_fk": {
-          "name": "testimonials_user_id_users_userid_fk",
-          "tableFrom": "testimonials",
+        "predictions_userid_users_userid_fk": {
+          "name": "predictions_userid_users_userid_fk",
+          "tableFrom": "predictions",
           "tableTo": "users",
           "columnsFrom": [
-            "user_id"
+            "userid"
           ],
           "columnsTo": [
             "userid"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.updates": {
-      "name": "updates",
-      "schema": "",
-      "columns": {
-        "updateid": {
-          "name": "updateid",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "content": {
-          "name": "content",
-          "type": "varchar(500)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "updates_user_id_users_userid_fk": {
-          "name": "updates_user_id_users_userid_fk",
-          "tableFrom": "updates",
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "userid"
-          ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -317,18 +193,18 @@
           "primaryKey": false,
           "notNull": true
         },
-        "position": {
-          "name": "position",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
         "phone": {
           "name": "phone",
           "type": "varchar(20)",
           "primaryKey": false,
           "notNull": true,
           "default": "''"
+        },
+        "location": {
+          "name": "location",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
         },
         "created_at": {
           "name": "created_at",
@@ -366,17 +242,7 @@
       }
     }
   },
-  "enums": {
-    "public.role": {
-      "name": "role",
-      "schema": "public",
-      "values": [
-        "admin",
-        "user",
-        "superuser"
-      ]
-    }
-  },
+  "enums": {},
   "schemas": {},
   "_meta": {
     "columns": {},
