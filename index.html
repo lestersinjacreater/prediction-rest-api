@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            color: #666;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .endpoint {
+            margin: 20px 0;
+        }
+
+        .endpoint h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .endpoint p {
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Hands Limited API Documentation</h1>
+        <p>This API provides endpoints for user management, testimonials, and company updates.</p>
+
+        <div class="endpoint">
+            <h2>Authentication</h2>
+            <h3>POST /auth/register</h3>
+            <p>Register a new user account.</p>
+            <h3>POST /auth/login</h3>
+            <p>Authenticate user and receive JWT token.</p>
+        </div>
+
+        <div class="endpoint">
+            <h2>Users</h2>
+            <h3>GET /users</h3>
+            <p>Fetch all users (Admin only)</p>
+            <h3>GET /users/:id</h3>
+            <p>Fetch specific user details</p>
+            <h3>PUT /users/:id</h3>
+            <p>Update user information</p>
+            <h3>DELETE /users/:id</h3>
+            <p>Delete user account (Admin only)</p>
+        </div>
+
+        <div class="endpoint">
+            <h2>Testimonials</h2>
+            <h3>GET /testimonials</h3>
+            <p>Fetch all testimonials</p>
+            <h3>GET /testimonials/:id</h3>
+            <p>Fetch specific testimonial</p>
+            <h3>POST /testimonials</h3>
+            <p>Create new testimonial (Authenticated users)</p>
+            <h3>DELETE /testimonials/:id</h3>
+            <p>Delete testimonial (Admin only)</p>
+        </div>
+
+        <div class="endpoint">
+            <h2>Updates</h2>
+            <h3>GET /updates</h3>
+            <p>Fetch all company updates</p>
+            <h3>POST /updates</h3>
+            <p>Create new update (Admin only)</p>
+            <h3>PUT /updates/:id</h3>
+            <p>Edit existing update (Admin only)</p>
+            <h3>DELETE /updates/:id</h3>
+            <p>Delete update (Admin only)</p>
+        </div>
+    </div>
+</body>
+
+</html>

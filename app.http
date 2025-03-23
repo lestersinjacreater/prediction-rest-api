@@ -1,0 +1,177 @@
+### Authentication Endpoints
+
+# Register a new user
+POST http://localhost:8000/auth/register
+Content-Type: application/json
+
+{
+    "username": "Vieeeeeeetr",
+    "email": "vitotrrrttinja@gmail.com",
+    "position": "Software Developer",
+    "phone": "1234567890"
+}
+
+### Login user
+POST http://localhost:8000/auth/login
+Content-Type: application/json
+
+{
+    "email": "victorsinja@gmail.com",
+    
+    "password": "password123"
+}
+
+### Register admin user
+POST http://localhost:8000/auth/register
+Content-Type: application/json
+
+{
+    "username": "smart",
+    "email": "smart@example.com",
+    "password": "admin123",
+    "position": "backend developer",
+    "role": "admin"
+}
+
+### Login admin (save this token for admin operations)
+POST http://localhost:8000/auth/login
+Content-Type: application/json
+
+{
+    "email": "eddy@example.com",
+    "password": "admin123"
+}
+
+### User Management Endpoints
+
+### Get all users (Admin only)
+GET https://rest-api-for-hands.onrender.com/users
+Authorization: Bearer {{adminToken}}
+
+### Get all users (Admin only)
+PUT https://rest-api-for-hands.onrender.com/users/14
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "position": "newusername",
+}
+
+### Get specific user
+PUT https://rest-api-for-hands.onrender.com/testimonial/44
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+    "text": "some loveky service matee"
+}
+
+### Update user
+POST  https://rest-api-for-hands.onrender.com/updates
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "userId": 15,
+  "content": "Added a new feature for user analytics tracking."
+}
+
+### Delete user (Admin only)
+DELETE https://rest-api-for-hands.onrender.com/users/1
+Authorization: Bearer {{adminToken}}
+
+### Testimonial Endpoints
+
+### Create testimonial
+PUT http://localhost:8000/testimonials/44
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsZXN0ZXJzaW5qYTY2MUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTczNDk3OTQyOH0.5u8Z09F25A-mnRPYv08CeN-sQ4FvfyFrWHNJJCvNVfY
+Content-Type: application/json
+
+{
+    "text": "This is a great service! Highly recommended.By this user"
+}
+
+### Get all testimonials
+GET http://localhost:8000/products
+Authorization: Bearer {{userToken}}
+
+### Get specific testimonial
+GET http://localhost:8000/testimonials/1
+Authorization: Bearer {{userToken}}
+
+### Delete testimonial (Admin only)
+DELETE http://localhost:8000/testimonials/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzM2OTc5OTMwfQ.E3yUTsq-tca9eC5R7wI4dFYN1d-v4GJPzPO3rFMmM4A
+
+### Update Endpoints (Admin Only)
+
+### Create update
+POST http://localhost:8000/updates
+Content-Type: application/json
+
+{
+    "userId": 1,
+    "content": "New feature release: Enhanced user dashboard now available!"
+}
+
+### Get all updates
+GET http://localhost:8000/updates
+
+### Edit update
+PUT http://localhost:8000/products/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "imageUrl": "https://example.com/new.jpg"
+}
+
+### Delete update
+DELETE http://localhost:8000/updates/1
+Authorization: Bearer {{adminToken}}
+
+### Variables (for REST Client in VS Code)
+@userToken = // paste user JWT token here after login
+@adminToken = // paste admin JWT token here after login
+
+
+###testimonials 
+
+###create a user
+# Register a new user
+POST http://localhost:8000/products
+Content-Type: application/json
+
+{
+    "title": "Gaming Headset",
+    "description": "Noise-canceling headset with surround sound.",
+    "imageUrl": "https://example.com/images/headset.jpg"
+}
+
+
+
+### Login user
+POST https://rest-api-for-hands.onrender.com/auth/login
+Content-Type: application/json
+
+{
+    "email": "abel@gmail.com",
+    "password": "password123"
+}
+
+###create a testimonial
+GET  https://rest-api-for-hands.onrender.com/products
+
+###
+PUT https://rest-api-for-hands.onrender.com/users/15
+Content-Type: application/json
+
+{
+    "email": "teddy@example.com",
+    "position": "devnotnew"
+  }
+
+
+
+
+
