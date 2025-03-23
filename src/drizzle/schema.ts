@@ -1,5 +1,8 @@
-import { pgTable, serial, varchar, timestamp, integer, json } from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar, timestamp, integer, json , pgEnum } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+
+// Define the role enum
+export const roleEnum = pgEnum("role", ["admin", "user", "superuser"]);
 
 // ==========================
 // Users Table
@@ -10,6 +13,7 @@ export const UsersTable = pgTable('users', {
   username: varchar('username', { length: 255 }).notNull().unique(),
   email: varchar('email', { length: 255 }).notNull().unique(),
   phone: varchar('phone', { length: 20 }).notNull().default(''),
+  role: roleEnum('role').default('user'), // New role field with a default value of "user"
   location: varchar('location', { length: 255 }).notNull(),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
