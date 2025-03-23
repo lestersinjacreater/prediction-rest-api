@@ -12,12 +12,9 @@ import { readFile } from 'fs/promises';
 import { client } from './drizzle/db'  // Import the client
 
 import { userRouter } from './users/user.router'
-import { authRouter } from './auth/auth.router'
-import { testimonialRouter } from './testimonials/testimonial.router'
-import { updateRouter } from './feedback/feedback.router'
-import { clientRouter } from './posible clients/posibleclients.router'
-import { serviceRouter } from './offerdservices/services.router'
-import { productRouter } from './predictions/product.router';
+
+import { feedbackRouter } from './feedback/feedback.router'
+import { predictionRouter } from './predictions/product.router';
 
 const app = new Hono()
 
@@ -64,12 +61,8 @@ app.use('/api/*', jwt({
 
 // Routes
 app.route("/", userRouter)        // User management
-app.route("/", testimonialRouter) // Testimonials management
-app.route("/", updateRouter)      // Updates management
-app.route("/auth", authRouter)    // Authentication
-app.route("/", clientRouter)      // Posible clients
-app.route("/", serviceRouter)     // Offered services
-app.route("/", productRouter)     // Products
+app.route("/", feedbackRouter)      // Updates management
+app.route("/", predictionRouter)     // Products
 
 // Default route for unmatched paths
 app.all('*', (c) => {
