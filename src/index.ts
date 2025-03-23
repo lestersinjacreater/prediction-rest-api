@@ -17,7 +17,7 @@ import { testimonialRouter } from './testimonials/testimonial.router'
 import { updateRouter } from './feedback/feedback.router'
 import { clientRouter } from './posible clients/posibleclients.router'
 import { serviceRouter } from './offerdservices/services.router'
-import { productRouter } from './products/product.router';
+import { productRouter } from './predictions/product.router';
 
 const app = new Hono()
 
