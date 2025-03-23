@@ -146,3 +146,152 @@ Content-Type: application/json
 # Delete a feedback entry (Admin only)
 DELETE http://localhost:8000/feedback/1
 Authorization: Bearer {{adminToken}}
+
+#deployed test
+### Authentication Endpoints
+
+# Register a new user (using Clerk authentication)
+POST https://prediction-rest-api.onrender.com/auth/register
+Content-Type: application/json
+
+{
+  "clerkId": "clerk_1234567890abcdef", 
+  "username": "FarmerJoe",
+  "email": "farmerjoe@example.com",
+  "phone": "0712345678",
+  "location": "Nairobi",
+  "role": "user"
+}
+
+# (Optional) Login user
+# In a Clerk-based app, login is handled by Clerk's client-side SDK.
+POST https://prediction-rest-api.onrender.com/auth/login
+Content-Type: application/json
+
+{
+  "email": "farmerjoe@example.com",
+  "password": "password123"
+}
+
+# Register an admin user
+POST https://prediction-rest-api.onrender.com/auth/register
+Content-Type: application/json
+
+{
+  "clerkId": "clerk_admin_abcdef123456", 
+  "username": "AdminJane",
+  "email": "adminjane@example.com",
+  "phone": "0798765432",
+  "location": "Mombasa",
+  "role": "admin"
+}
+
+# Admin login (simulate; in a Clerk scenario, get the JWT from Clerk)
+POST https://prediction-rest-api.onrender.com/auth/login
+Content-Type: application/json
+
+{
+  "email": "adminjane@example.com",
+  "password": "admin123"
+}
+
+### Variables (for REST Client in VS Code)
+@userToken = <paste user JWT token here after login>
+@adminToken = <paste admin JWT token here after login>
+
+### User Management Endpoints
+
+# Get all users (Admin only)
+GET https://prediction-rest-api.onrender.com/users
+Authorization: Bearer {{adminToken}}
+
+# Get a specific user by numeric ID (Admin or the user themselves)
+GET https://prediction-rest-api.onrender.com/users/1
+Authorization: Bearer {{adminToken}}
+
+# Get a specific user by Clerk ID (preferred for authenticated sessions)
+GET https://prediction-rest-api.onrender.com/users/clerk/clerk_1234567890abcdef
+Authorization: Bearer {{userToken}}
+
+# Update a user (Admin or the user themselves)
+PUT https://prediction-rest-api.onrender.com/users/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "username": "FarmerJoeUpdated",
+  "phone": "0723456789"
+}
+
+# Delete a user (Admin only)
+DELETE https://prediction-rest-api.onrender.com/users/1
+Authorization: Bearer {{adminToken}}
+
+### Prediction Endpoints
+
+# Create a prediction
+# The frontend sends the base prediction data; the backend calls the external API to get yield details.
+POST https://prediction-rest-api.onrender.com/predictions
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "userid": 1,
+  "cropType": "Maize",
+  "plantingDate": "2025-03-25T00:00:00Z"
+}
+
+# Get all predictions (Admin only)
+GET https://prediction-rest-api.onrender.com/predictions
+Authorization: Bearer {{adminToken}}
+
+# Get a specific prediction (Admin or owner)
+GET https://prediction-rest-api.onrender.com/predictions/1
+Authorization: Bearer {{adminToken}}
+
+# Update a prediction (Admin or owner)
+PUT https://prediction-rest-api.onrender.com/predictions/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "cropType": "Updated Maize",
+  "plantingDate": "2025-03-26T00:00:00Z"
+}
+
+# Delete a prediction (Admin only)
+DELETE https://prediction-rest-api.onrender.com/predictions/1
+Authorization: Bearer {{adminToken}}
+
+### Feedback Endpoints
+
+# Create a feedback entry (for a prediction)
+POST https://prediction-rest-api.onrender.com/feedback
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "predictionid": 1,
+  "userid": 1,
+  "accuracyRating": 4,
+  "comment": "The prediction was close, but could be more accurate.",
+  "actualYield": "1500kg"
+}
+
+# Get all feedback entries (Admin only)
+GET https://prediction-rest-api.onrender.com/feedback
+Authorization: Bearer {{adminToken}}
+
+# Update a feedback entry (Admin only)
+PUT https://prediction-rest-api.onrender.com/feedback/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "accuracyRating": 5,
+  "comment": "Updated: The prediction was perfect."
+}
+
+# Delete a feedback entry (Admin only)
+DELETE https://prediction-rest-api.onrender.com/feedback/1
+Authorization: Bearer {{adminToken}}
