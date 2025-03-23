@@ -14,7 +14,7 @@ import { client } from './drizzle/db'  // Import the client
 import { userRouter } from './users/user.router'
 import { authRouter } from './auth/auth.router'
 import { testimonialRouter } from './testimonials/testimonial.router'
-import { updateRouter } from './updates/update.router'
+import { updateRouter } from './feedback/feedback.router'
 import { clientRouter } from './posible clients/posibleclients.router'
 import { serviceRouter } from './offerdservices/services.router'
 import { productRouter } from './products/product.router';
