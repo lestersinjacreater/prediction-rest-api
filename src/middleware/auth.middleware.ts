@@ -2,7 +2,8 @@ import { Context, Next } from "hono";
 import { UsersTable } from "../drizzle/schema";
 import db from "../drizzle/db";
 import { eq } from "drizzle-orm";
-// Import Clerk SDK (adjust based on your Clerk setup)
+// Import Clerk SDK
+//  (adjust based on your Clerk setup)
 import { clerkClient } from "@clerk/clerk-sdk-node";
 
 export const adminGuard = async (c: Context, next: Next) => {
