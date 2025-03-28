@@ -31,15 +31,15 @@ export const adminGuard = async (c: Context, next: Next) => {
       return c.json({ error: "Clerk user ID not found" }, 401);
     }
 
-    // Fetch the user from your Users table using the Clerk ID.
-    const user = await db.query.UsersTable.findFirst({
-      where: eq(UsersTable.clerkId, clerkId),
-      columns: { role: true }
-    });
+    // // Fetch the user from your Users table using the Clerk ID.
+    // const user = await db.query.UsersTable.findFirst({
+    //   where: eq(UsersTable.clerkId, clerkId),
+    //   columns: { role: true }
+    // });
 
-    if (!user || user.role !== "admin") {
-      return c.json({ error: "Unauthorized" }, 403);
-    }
+    // if (!user || user.role !== "admin") {
+    //   return c.json({ error: "Unauthorized" }, 403);
+    // }
 
     // All good - proceed to next middleware/handler.
     await next();
