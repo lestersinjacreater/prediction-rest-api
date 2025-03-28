@@ -15,7 +15,7 @@ import { userRouter } from './users/user.router'
 
 import { feedbackRouter } from './feedback/feedback.router'
 import { authRouter } from './Authentication/authentication.router'
-import { predictionRouter } from './predictions/product.router';
+import { predictionRouter } from './predictions/prediction.router';
 
 const app = new Hono()
 

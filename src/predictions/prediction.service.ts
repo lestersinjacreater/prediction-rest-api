@@ -1,40 +1,11 @@
 import { eq } from "drizzle-orm";
-import axios from "axios";
 import db from "../drizzle/db";
 import { TIPrediction, TSPrediction, PredictionsTable } from "../drizzle/schema";
 
-// Replace this URL with your external prediction API endpoint
-const EXTERNAL_API_URL = "https://external-prediction-api.example.com/predict";
-
-// Function to call external API and fetch prediction
-const fetchPredictionFromExternalAPI = async (inputData: Omit<TIPrediction, "yieldPrediction" | "harvestDate" | "predictionData">) => {
-  // Make the API call with the input data
-  const response = await axios.post(EXTERNAL_API_URL, inputData);
-  // Extract the prediction details from the API response.
-  // This structure will depend on the external API's response format.
-  const { predictedYield, estimatedHarvestDate, ...extraData } = response.data;
-  return {
-    yieldPrediction: predictedYield,
-    harvestDate: new Date(estimatedHarvestDate),
-    predictionData: extraData,
-  };
-};
-
-// Create a new prediction record by calling the external API first
-export const createPredictionService = async (inputData: Omit<TIPrediction, "yieldPrediction" | "harvestDate" | "predictionData">): Promise<string> => {
-  // Fetch prediction from external API
-  const predictionResult = await fetchPredictionFromExternalAPI(inputData);
-
-  // Build the full prediction object for storage
-  const predictionToStore: TIPrediction = {
-    ...inputData,
-    yieldPrediction: predictionResult.yieldPrediction,
-    harvestDate: predictionResult.harvestDate,
-    predictionData: predictionResult.predictionData,
-  };
-
+// Create a new prediction record
+export const createPredictionService = async (inputData: TIPrediction): Promise<string> => {
   // Insert the prediction record into the database
-  await db.insert(PredictionsTable).values(predictionToStore);
+  await db.insert(PredictionsTable).values(inputData);
   return "Prediction created successfully";
 };
 

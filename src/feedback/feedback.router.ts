@@ -7,14 +7,14 @@ import {
 } from "./feedback.controller";
 import { zValidator } from "@hono/zod-validator";
 import { feedbackSchema } from "../validators";
-import { adminRoleAuth, userRoleAuth } from "../middleware/bearAuth";
+//import { adminRoleAuth, userRoleAuth } from "../middleware/bearAuth";
 
 export const feedbackRouter = new Hono();
 
 // Create a feedback entry - accessible by authenticated users
 feedbackRouter.post(
   "/feedback",
-  userRoleAuth,
+  // userRoleAuth,
   zValidator('json', feedbackSchema, (result, c) => {
     if (!result.success) {
       return c.json(result.error, 400);
@@ -24,15 +24,19 @@ feedbackRouter.post(
 );
 
 // Delete a feedback entry - admin only
-feedbackRouter.delete("/feedback/:id", adminRoleAuth, deleteFeedback);
+feedbackRouter.delete("/feedback/:id", 
+  // adminRoleAuth,
+   deleteFeedback);
 
 // Get all feedback entries - admin only
-feedbackRouter.get("/feedback", adminRoleAuth, getFeedback);
+feedbackRouter.get("/feedback", 
+  // adminRoleAuth,
+   getFeedback);
 
 // Edit a feedback entry - admin only
 feedbackRouter.put(
   "/feedback/:id",
-  adminRoleAuth,
+  // adminRoleAuth,
   zValidator('json', feedbackSchema, (result, c) => {
     if (!result.success) {
       return c.json(result.error, 400);

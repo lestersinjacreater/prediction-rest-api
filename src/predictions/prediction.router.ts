@@ -8,14 +8,14 @@ import {
 } from "./prediction.controller";
 import { zValidator } from "@hono/zod-validator";
 import { predictionSchema } from "../validators";
-import { adminRoleAuth, adminOrUserRoleAuth, userRoleAuth } from "../middleware/bearAuth";
+//import { adminRoleAuth, adminOrUserRoleAuth, userRoleAuth } from "../middleware/bearAuth";
 
 export const predictionRouter = new Hono();
 
 // Create a prediction - accessible by authenticated users
 predictionRouter.post(
   "/predictions",
-  userRoleAuth,
+  // userRoleAuth,
   zValidator("json", predictionSchema, (result, c) => {
     if (!result.success) {
       return c.json(result.error, 400);
@@ -27,7 +27,7 @@ predictionRouter.post(
 // Update a prediction - accessible by admin or the owner of the prediction
 predictionRouter.put(
   "/predictions/:id",
-  adminOrUserRoleAuth,
+  // adminOrUserRoleAuth,
   zValidator("json", predictionSchema, (result, c) => {
     if (!result.success) {
       return c.json(result.error, 400);
@@ -37,10 +37,16 @@ predictionRouter.put(
 );
 
 // Get all predictions - admin only
-predictionRouter.get("/predictions", adminRoleAuth, getPredictions);
+predictionRouter.get("/predictions", 
+  // adminRoleAuth,
+   getPredictions);
 
 // Get a single prediction - accessible by admin or the owner of the prediction
-predictionRouter.get("/predictions/:id", adminOrUserRoleAuth, getPrediction);
+predictionRouter.get("/predictions/:id",
+  //  adminOrUserRoleAuth,
+    getPrediction);
 
 // Delete a prediction - admin only
-predictionRouter.delete("/predictions/:id", adminRoleAuth, deletePrediction);
+predictionRouter.delete("/predictions/:id", 
+  // adminRoleAuth,
+   deletePrediction);

@@ -5,7 +5,7 @@ import {
   createUser, 
   updateUser, 
   deleteUser,
-  getUserByClerkId 
+  // getUserByClerkId 
 } from "./user.controller";
 import { zValidator } from "@hono/zod-validator";
 import { registerUserSchema, userSchema } from "../validators";
@@ -19,8 +19,8 @@ userRouter.get("/users", adminRoleAuth, getUsers);
 // Get a single user by numeric ID - accessible by admin or the user themselves
 userRouter.get("/users/:id", adminOrUserRoleAuth, getUser);
 
-// Get a single user by Clerk ID (for authenticated sessions) - accessible by admin or the user themselves
-userRouter.get("/users/clerk/:clerkId", adminOrUserRoleAuth, getUserByClerkId);
+// // Get a single user by Clerk ID (for authenticated sessions) - accessible by admin or the user themselves
+// userRouter.get("/users/clerk/:clerkId", adminOrUserRoleAuth, getUserByClerkId);
 
 // Create a user (registration using Clerk authentication - requires clerkId)
 userRouter.post(

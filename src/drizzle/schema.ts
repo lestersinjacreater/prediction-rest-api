@@ -79,6 +79,14 @@ export const usersRelations = relations(UsersTable, ({ many }) => ({
   feedback: many(FeedbackTable),
 }));
 
+// Auth -> User (One-to-One)
+export const authRelations = relations(AuthTable, ({ one }) => ({
+  user: one(UsersTable, {
+    fields: [AuthTable.userid],
+    references: [UsersTable.userid],
+  }),
+}));
+
 // Predictions -> User & Feedback (Many-to-One and One-to-One/Many)
 // Here, each prediction is linked to one user. Feedback is linked to the prediction.
 export const predictionsRelations = relations(PredictionsTable, ({ one, many }) => ({

@@ -1,6 +1,6 @@
 import { Context } from "hono";
 import {
-  getUserByClerkIdService,
+  //getUserByClerkIdService,
   getUserService,
   getUsersService,
   createUserService,
@@ -16,16 +16,16 @@ export const getUsers = async (c: Context) => {
 
 // Get user by Clerk ID (recommended for auth)
 // Assume Clerk's user ID is available via a route parameter (or you can extract it from Clerk's session context)
-export const getUserByClerkId = async (c: Context) => {
-  const clerkId = c.req.param("clerkId");
-  if (!clerkId) return c.text("Invalid Clerk ID", 400);
+// export const getUserByClerkId = async (c: Context) => {
+//   const clerkId = c.req.param("clerkId");
+//   if (!clerkId) return c.text("Invalid Clerk ID", 400);
 
-  const user = await getUserByClerkIdService(clerkId);
-  if (!user) {
-    return c.text("User not found", 404);
-  }
-  return c.json(user, 200);
-};
+//   const user = await getUserByClerkIdService(clerkId);
+//   if (!user) {
+//     return c.text("User not found", 404);
+//   }
+//   return c.json(user, 200);
+// };
 
 // Alternatively, if needed, get user by numeric id (less used with Clerk)
 export const getUser = async (c: Context) => {

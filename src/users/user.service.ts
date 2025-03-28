@@ -2,13 +2,13 @@ import { eq } from "drizzle-orm";
 import db from "../drizzle/db";
 import { TIUser, TSUser, UsersTable } from "../drizzle/schema";
 
-// Get user by Clerk ID - used for authentication and profile
-export const getUserByClerkIdService = async (clerkId: string): Promise<TSUser | null> => {
-  const user = await db.query.UsersTable.findFirst({
-    where: eq(UsersTable.clerkId, clerkId)
-  });
-  return user || null;
-};
+// // Get user by Clerk ID - used for authentication and profile
+// export const getUserByClerkIdService = async (clerkId: string): Promise<TSUser | null> => {
+//   const user = await db.query.UsersTable.findFirst({
+//     where: eq(UsersTable.clerkId, clerkId)
+//   });
+//   return user || null;
+// };
 
 // Optionally, you can keep the getUserService by local user id if needed
 export const getUserService = async (id: number): Promise<TSUser | null> => {
