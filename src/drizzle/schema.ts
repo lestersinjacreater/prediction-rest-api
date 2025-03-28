@@ -2,22 +2,37 @@ import { pgTable, serial, varchar, timestamp, integer, json , pgEnum } from "dri
 import { relations } from "drizzle-orm";
 
 // Define the role enum
-export const roleEnum = pgEnum("role", ["admin", "user", "superuser"]);
+//export const roleEnum = pgEnum("role", ["admin", "user", "superuser"]);
 
 // ==========================
 // Users Table
 // ==========================
 export const UsersTable = pgTable('users', {
   userid: serial('userid').primaryKey(),
-  clerkId: varchar('clerk_id', { length: 255 }).notNull().unique(), // Clerk's unique user ID
+  //clerkId: varchar('clerk_id', { length: 255 }).notNull().unique(), // Clerk's unique user ID
   username: varchar('username', { length: 255 }).notNull().unique(),
   email: varchar('email', { length: 255 }).notNull().unique(),
   phone: varchar('phone', { length: 20 }).notNull().default(''),
-  role: roleEnum('role').default('user'), // New role field with a default value of "user"
+  //role: roleEnum('role').default('user'), // New role field with a default value of "user"
   location: varchar('location', { length: 255 }).notNull(),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
 });
+
+// ==========================
+// Authentication Table
+// ==========================
+export const AuthTable = pgTable('auth', {
+  authid: serial('authid').primaryKey(),
+  userid: integer('user_id').references(() => UsersTable.userid, { onDelete: "cascade" }),
+  password: varchar('password', { length: 255 }).notNull(),
+  //role: roleEnum('role').default('user'),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
+
+
+
 
 // ==========================
 // Predictions Table
@@ -96,4 +111,7 @@ export type TSPrediction = typeof PredictionsTable.$inferSelect;
 
 export type TIFeedback = typeof FeedbackTable.$inferInsert;
 export type TSFeedback = typeof FeedbackTable.$inferSelect;
+
+export type TIAuth = typeof AuthTable.$inferInsert;
+export type TSAuth = typeof AuthTable.$inferSelect;
 

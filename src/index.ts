@@ -14,6 +14,7 @@ import { client } from './drizzle/db'  // Import the client
 import { userRouter } from './users/user.router'
 
 import { feedbackRouter } from './feedback/feedback.router'
+import { authRouter } from './Authentication/authentication.router'
 import { predictionRouter } from './predictions/product.router';
 
 const app = new Hono()
@@ -63,6 +64,7 @@ app.use('/api/*', jwt({
 app.route("/", userRouter)        // User management
 app.route("/", feedbackRouter)      // Updates management
 app.route("/", predictionRouter)     // Products
+app.route("/", authRouter)        // Authentication
 
 // Default route for unmatched paths
 app.all('*', (c) => {

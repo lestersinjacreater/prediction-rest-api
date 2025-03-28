@@ -1,3 +1,10 @@
+CREATE TABLE IF NOT EXISTS "auth" (
+	"authid" serial PRIMARY KEY NOT NULL,
+	"user_id" integer,
+	"password" varchar(255) NOT NULL,
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "feedback" (
 	"feedbackid" serial PRIMARY KEY NOT NULL,
 	"predictionid" integer NOT NULL,
@@ -32,6 +39,12 @@ CREATE TABLE IF NOT EXISTS "users" (
 	CONSTRAINT "users_username_unique" UNIQUE("username"),
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "auth" ADD CONSTRAINT "auth_user_id_users_userid_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("userid") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "feedback" ADD CONSTRAINT "feedback_predictionid_predictions_predictionid_fk" FOREIGN KEY ("predictionid") REFERENCES "public"."predictions"("predictionid") ON DELETE cascade ON UPDATE no action;

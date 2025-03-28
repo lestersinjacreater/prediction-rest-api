@@ -6,18 +6,16 @@ import { z } from 'zod';
 
 // Schema for registering a new user (Clerk-auth integrated)
 export const registerUserSchema = z.object({
-  // Clerk's unique user ID is required for linking with Clerk authentication
-  clerkId: z.string().min(1, "Clerk ID is required"),
+  userid: z.number(),
   username: z.string().min(3, "Username must be at least 3 characters"),
   email: z.string().email("Invalid email address"),
-  // Phone is optional but if provided, can be validated further if needed
   phone: z.string().optional(),
   location: z.string().min(1, "Location is required"),
 });
 
 // Schema for a user record (e.g., for updates or retrieving user data)
 export const userSchema = z.object({
-  clerkId: z.string(),
+  userid: z.number(),
   username: z.string(),
   email: z.string().email(),
   phone: z.string().optional(),
@@ -69,4 +67,22 @@ export const feedbackSchema = z.object({
   comment: z.string().max(1000, "Comment is too long").optional(),
   // Optional field for the actual yield reported by the user
   actualYield: z.string().optional(),
+});
+
+// ----------------------------
+// Authentication Schemas
+// ----------------------------
+// Auth schemas
+export const loginUserSchema = z.object({
+  email: z.string().email(),
+  password: z.string()
+});
+
+export const authRegisterUserSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  phone: z.string().optional(),
+  //position: z.string(),
+  role: z.enum(["admin", "user", "superuser"]).default("user"),
 });
