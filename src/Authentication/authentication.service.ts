@@ -3,7 +3,7 @@ import db from "../drizzle/db";
 import { sql } from "drizzle-orm";
 import { loginUserSchema } from "../validators";
 import type { z } from "zod";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 type LoginInput = z.infer<typeof loginUserSchema>;
 
